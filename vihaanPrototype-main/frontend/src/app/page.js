@@ -9,10 +9,10 @@ import { Textarea } from "@/components/ui/textarea";
 
 export default function Home() {
   const scriptURL =
-    "https://script.google.com/macros/s/AKfycbwZ-rqDktv_mMlx-Meo3D4xaV1BT7kRQj9cBocdSWAHBxLKtwEH-RgznSo0QSgrAZdfAA/exec";
+    "https://script.google.com/macros/s/AKfycby06Gw1CLoPhNySrd5lbvTbz6mTgei2pw95IWGQ88aeX1hLyzcS8fS8npHyda-eWdqF6A/exec";
 
   const backendURL =
-    "https://test-backend-production-4cda.up.railway.app/classify";
+    "https://backend-production-12c1.up.railway.app/classify";
 
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ export default function Home() {
         body: complaint,
       }).then((response) => response.json());
       if (!data) data.prediction = "Unknown";
-      formdata.append("type", data.prediction);
+      formdata.append("Category", data.prediction);
       console.log(data);
       setResult("Category: " + data.prediction);
       await fetch(scriptURL, {
@@ -56,11 +56,12 @@ export default function Home() {
         <form onSubmit={(e) => submitForm(e)} className="flex flex-col gap-4">
           <div>
             <Label>Name</Label>
-            <Input type="text" name="name" />
+            <Input type="text" name="Name" />
           </div>
           <div>
             <Label>Complaint</Label>
-            <Textarea name="complaint" />
+            {/* whatever is in double quotes should be same as column name */}
+            <Textarea name="Complaint" />
           </div>
           <Button
             variant={"default"}
